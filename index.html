@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
 	<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
@@ -7,6 +6,16 @@
 	<title>Welcome to Peirui Cao's Home Page</title>
     <style type="text/css">
 		li {margin-bottom:10px}
+		/* 可点击文字：下划线链接样式 */
+		.pub-toggle-link {
+			margin-left: 12px;
+			cursor: pointer;
+			text-decoration: underline;
+			color: #0066cc;
+		}
+		.pub-toggle-link:hover {
+			color: #cc0000;
+		}
 	</style>
 
 	<script>
@@ -17,6 +26,31 @@
 		var s = document.getElementsByTagName("script")[0]; 
 		s.parentNode.insertBefore(hm, s);
 		})();
+
+		// 【改这里一个数字，Conference 和 Journal 同时控制显示篇数】
+		const DEFAULT_SHOW_NUM = 5;  
+
+		window.onload = function(){
+			// 动态生成CSS：超过DEFAULT_SHOW_NUM的都隐藏
+			let style = document.createElement('style');
+			style.textContent = `
+				.pub-list.collapsed li:nth-child(n+${DEFAULT_SHOW_NUM + 1}) {
+					display: none;
+				}
+			`;
+			document.head.appendChild(style);
+		};
+
+		// 点击同时切换 Conference + Journal 展开/收起
+		function toggleAllPub(){
+			let lists = document.querySelectorAll('.pub-list');
+			let txt = document.getElementById('pubToggleText');
+
+			lists.forEach(item => item.classList.toggle('collapsed'));
+
+			let isCollapsed = document.querySelector('.pub-list').classList.contains('collapsed');
+			txt.innerText = isCollapsed ? 'More' : 'Collapse';
+		}
 	</script>
 </head>
 <body>
@@ -36,9 +70,6 @@
 
 		<b>Address</b>: Building of Computer Science and Technology, Nanjing University, No.163 Xianlin Avenue, Nanjing, China, 210023<br>
     	<b>Email</b>: caopeirui AT nju.edu.cn<br>
-        <!-- <b><a href="https://example.com/your-cv-link" target="_blank">[CV_in_English]</a></b>
-		<b><a href="https://example.com/your-cv-link" target="_blank">[CV_in_Chinese]</a></b> -->
-		
     </tr>
     </table>
     <hr>
@@ -55,30 +86,14 @@
 	<p><h3>Research Interests</h3>
     	<ul>
 		My research interests include <b>reconfigurable</b> data center networks/AI clusters, large-scale network simulators, and network bottleneck analysis. At my core, I am committed to closing the gap between theory and real-world network systems.
-			<!-- <li>Static / dynamic analysis on mobile systems such as Android.<br>
-			<li>Mobile advertising fraud detection.<br>
-			<li>Digital forensics.<br> -->
 		</ul>
     </p>
     <hr>
-    <!-- <p><h3>Education</h3>
-    	<ul>
-        	<li>Ph.D., computer science and Engineering, 2019 - Current<br>
-        		<i>Shanghai Jiao Tong University</i>, Shanghai, China<br>
-			    Advisor: Professor <a href="https://nsec.sjtu.edu.cn/~hjzhu/">Haojin Zhu</a><br>
-				Area of Study: Mobile Security and Privacy
-            </li>
-            <li>B.S., computer science and Engineering, 2015.09 - 2019.06 <br>
-            	<i>University of Electronic Science and Technology of China</i>, Chengdu, China<br>
-               Advisor: Professor <a href="https://scholar.google.com/citations?user=nkjaN4QAAAAJ&hl=zh-CN">Ting Chen</a><br>
-            </li>
-        </ul>
-    </p>
-	<hr> -->
 	
     <p><h3>News</h3>
     	<ul>
-			<li>[April 2025]: Congratulations to Zhaochen's paper for winning the Best Student Paper Award of EuroSys 25.</li>
+			<li>[May 2026]: Congratulations to Zhaochen's paper for winning the Outstanding Paper Award of NSDI 2026.</li>
+			<li>[April 2025]: Congratulations to Zhaochen's paper for winning the Best Student Paper Award of EuroSys 2025.</li>
 			<li>[December 2024]: Peirui 获南京大学紫金学者人才基金资助。</li>
 			<li>[July 2024]: Peirui joins Nanjing University as a Research Assistant Professor.</li>
     		<li>[June 2024]: Peirui receives his PhD degree from Shanghai Jiao Tong University.</li>
@@ -87,53 +102,39 @@
     </p>
     <hr>
 
-    
-
-	<h3>Publications</h3>
-		#: Corresponding author
-		<h4>Conference</h4>
-    	<ul>
-			<li>Zhaochen Zhang, Feiyang Xue, and Rui Ning, Keqiang He, Gianni Antichi, Jiaqi Gao, Zhimeng Yin, Kexin Liu, Rui Li, Zhengqi Cui, Zhehao Lin, <b>Peirui Cao</b>#, Guihai Chen, Chen Tian, <a href="">"OSCAR: O(1)-Step Convergence And Readily-deployable Congestion Control"</a>, in NSDI, Renton, WA, USA, May 4–6, 2026.</li>
-			<li>Chenxu Wang, Fan Wentao, Zhehao Lin, <b>Peirui Cao</b>#, Xi Lin, Xiaohu Xu, Wanchun Dou, Guihai Chen, Chen Tian, <a href="">"xCCLTuner: Treating xCCL as Black-box and Automatically Tuning"</a>, in INFOCOM, Tokyo, Japan, May 18-21, 2026.</li>
-			<li>Weihao Jiang, Wenli Xiao, Yuqing Yang, <b>Peirui Cao</b>, Shizhen Zhao, <a href="paper/OrderLock_sigcomm2025.pdf">"Orderlock: A New Type of Deadlock and its Implications on High Performance Network Protocol Design"</a>, in SIGCOMM, Coimbra, Portugal, September 8-11, 2025.</li>
-			<li><b>Peirui Cao</b>, Rui Ning, Hongwei Yang, Zhaochen Zhang, Chang Liu, Rui Li, Yongqi Yang, Yunzhuo Liu, Chengyuan Huang, Tao Sun, Xiaodong Duan, Guihai Chen, Chen Tian, <a href="paper/ics25-10.pdf">"PortFC: Designing High-performance Deadlock-free BCube Networks"</a>, in ICS, Salt Lake City, USA, June 8-11, 2025.</li>
-			<li> Zhaochen Zhang, Feiyang Xue, Keqiang He, Zhimeng Yin, Gianni Antichi, Jiaqi Gao, Yizhi Wang, Rui Ning, Haixin Nan, Xu Zhang, <b>Peirui Cao</b>, Xiaoliang Wang, Wanchun Dou, Guihai Chen, Chen Tian, <a href="paper/PrioPlus-EuroSys25.pdf">"Enabling Virtual Priority in Data Center Congestion Control"</a>, in EuroSys, Rotterdam, Netherlands, March 29-April 2, 2025. <span style="color: red; font-weight: bold">(Best Student Paper Award)</span></li>
-			<li><a href="https://sites.google.com/view/sklin">Shengkai Lin</a>, Shizhen Zhao, <b>Peirui Cao</b>, Xinchi Han, Quan Tian, Wenfeng Liu, Qi Wu, Donghai Han, Xinbing Wang <a href="paper/ONCache-nsdi25.pdf">"ONCache: A Cache-Based Low-Overhead Container Overlay Network"</a>, in NSDI, Philadelphia, PA, USA, April 28–30, 2025.</li>
-			<li>Wenli Xiao, Yuqing Yang, <b>Peirui Cao</b>, Zhuoran Liu, Shizhen Zhao, Xinbing Wang, <a href="https://ieeexplore.ieee.org/document/10934869">"OFC: An Original Congestion-based Fine-grained Priority Flow Control"</a>, in SECON, Phoenix, AZ, USA, December 2-4, 2024.</li>
-			<li><b>Peirui Cao</b>, Wenxue Cheng, Shizhen Zhao, Yongqiang Xiong, <a href="paper/ParaLet_NAIC2024.pdf">"Network Load Balancing with Parallel Flowlets for AI Training Clusters"</a>, in SIGCOMM Workshop on Networks for AI Computing (NAIC), Sydney, Australia, August 4-8, 2024.</li>
-			<li>Xiao Zhang, <b>Peirui Cao</b>, Yongxi Lyu, Qizhou Zhang, Shizhen Zhao, Xinbing Wang, Chenghu Zhou <a href="paper/FC+_ISPA_2023.pdf">"FC+: Near-optimal Deadlock-free Expander Data Center Networks"</a>, in IEEE ISPA, Wuhan, China, December 21-24, 2023.</li>
-			<li>Shizhen Zhao, Qizhou Zhang, <b>Peirui Cao</b>, Xiao Zhang, Xinbing Wang, Chenghu Zhou, <a href="paper/nsdi2023.pdf"> "Flattened Clos: Designing High-performance Deadlock-free Expander Data Center Networks Using Graph Contraction"</a>, in NSDI, Boston, MA, USA, April 17-19, 2023.</li>
-			<li>Shizhen Zhao, <b>Peirui Cao (first-student author)</b>, Xinbing Wang, <a href="paper/SIGMETRICS2022Topology.pdf">"Understanding the Performance Guarantee of Physical Topology Design for Optical Circuit Switched Data Centers"</a>, in SIGMETRICS, Mumbai, India, June 6-10, 2022. (Also invited in PACM on Measurement and Analysis of Computing Systems, Volume 5 Issue 3. https://dl.acm.org/doi/10.1145/3491054)</li>
-			<li><b>Peirui Cao</b>, Shizhen Zhao, Min Yee Teh, Yunzhuo Liu,  Xinbing Wang, <a href="paper/ICNP2021TROD.pdf">"TROD: Evolving From Electrical Data Center to Optical Data Center"</a>, in ICNP, Dallas, Texas, USA, November 1-5, 2021.</li>
-			<li>Shizhen Zhao, Xiao Zhang, <b>Peirui Cao</b>, Xinbing Wang, <a href="paper/IWQoS2021.pdf">"Design of Robust and Efficient Edge Server Placement and Server Scheduling Policies"</a>, in IWQoS, Tokyo, Japan, June 25-28, 2021.</li>
-		</ul>
-	
+	<h3>Selected Publications <span id="pubToggleText" class="pub-toggle-link" onclick="toggleAllPub()">More</span></h3>
+	#: Corresponding author
+	<h4>Conference</h4>
+	<ul class="pub-list collapsed">
+		<li>Zhaochen Zhang, Feiyang Xue, and Rui Ning, Keqiang He, Gianni Antichi, Jiaqi Gao, Zhimeng Yin, Kexin Liu, Rui Li, Zhengqi Cui, Zhehao Lin, <b>Peirui Cao</b>#, Guihai Chen, Chen Tian, <a href="https://www.usenix.org/conference/nsdi26/presentation/zhang-zhaochen">"OSCAR: O(1)-Step Convergence And Readily-deployable Congestion Control"</a>, in NSDI, Renton, WA, USA, May 4–6, 2026.  <span style="color: red; font-weight: bold">(Outstanding Paper Award)</span></li>
+		<li> Zhaochen Zhang, Feiyang Xue, Keqiang He, Zhimeng Yin, Gianni Antichi, Jiaqi Gao, Yizhi Wang, Rui Ning, Haixin Nan, Xu Zhang, <b>Peirui Cao</b>, Xiaoliang Wang, Wanchun Dou, Guihai Chen, Chen Tian, <a href="paper/PrioPlus-EuroSys25.pdf">"Enabling Virtual Priority in Data Center Congestion Control"</a>, in EuroSys, Rotterdam, Netherlands, March 29-April 2, 2025. <span style="color: red; font-weight: bold">(Best Student Paper Award)</span></li>
+		<li><b>Peirui Cao</b>, Rui Ning, Hongwei Yang, Zhaochen Zhang, Chang Liu, Rui Li, Yongqi Yang, Yunzhuo Liu, Chengyuan Huang, Tao Sun, Xiaodong Duan, Guihai Chen, Chen Tian, <a href="paper/ics25-10.pdf">"PortFC: Designing High-performance Deadlock-free BCube Networks"</a>, in ICS, Salt Lake City, USA, June 8-11, 2025.</li>
+		<li><b>Peirui Cao</b>, Shizhen Zhao, Min Yee Teh, Yunzhuo Liu,  Xinbing Wang, <a href="paper/ICNP2021TROD.pdf">"TROD: Evolving From Electrical Data Center to Optical Data Center"</a>, in ICNP, Dallas, Texas, USA, November 1-5, 2021.</li>
+		<li>Shizhen Zhao, <b>Peirui Cao (first-student author)</b>, Xinbing Wang, <a href="paper/SIGMETRICS2022Topology.pdf">"Understanding the Performance Guarantee of Physical Topology Design for Optical Circuit Switched Data Centers"</a>, in SIGMETRICS, Mumbai, India, June 6-10, 2022. (Also invited in PACM on Measurement and Analysis of Computing Systems, Volume 5 Issue 3. https://dl.acm.org/doi/10.1145/3491054)</li>
+		<li>Chenxu Wang, Fan Wentao, Zhehao Lin, <b>Peirui Cao</b>#, Xi Lin, Xiaohu Xu, Wanchun Dou, Guihai Chen, Chen Tian, <a href="">"xCCLTuner: Treating xCCL as Black-box and Automatically Tuning"</a>, in INFOCOM, Tokyo, Japan, May 18-21, 2026.</li>
+		<li>Weihao Jiang, Wenli Xiao, Yuqing Yang, <b>Peirui Cao</b>, Shizhen Zhao, <a href="paper/OrderLock_sigcomm2025.pdf">"Orderlock: A New Type of Deadlock and its Implications on High Performance Network Protocol Design"</a>, in SIGCOMM, Coimbra, Portugal, September 8-11, 2025.</li>
+		<li><a href="https://sites.google.com/view/sklin">Shengkai Lin</a>, Shizhen Zhao, <b>Peirui Cao</b>, Xinchi Han, Quan Tian, Wenfeng Liu, Qi Wu, Donghai Han, Xinbing Wang <a href="paper/ONCache-nsdi25.pdf">"ONCache: A Cache-Based Low-Overhead Container Overlay Network"</a>, in NSDI, Philadelphia, PA, USA, April 28–30, 2025.</li>
+		<li>Wenli Xiao, Yuqing Yang, <b>Peirui Cao</b>, Zhuoran Liu, Shizhen Zhao, Xinbing Wang, <a href="https://ieeexplore.ieee.org/document/10934869">"OFC: An Original Congestion-based Fine-grained Priority Flow Control"</a>, in SECON, Phoenix, AZ, USA, December 2-4, 2024.</li>
+		<li><b>Peirui Cao</b>, Wenxue Cheng, Shizhen Zhao, Yongqiang Xiong, <a href="paper/ParaLet_NAIC2024.pdf">"Network Load Balancing with Parallel Flowlets for AI Training Clusters"</a>, in SIGCOMM Workshop on Networks for AI Computing (NAIC), Sydney, Australia, August 4-8, 2024.</li>
+		<li>Xiao Zhang, <b>Peirui Cao</b>, Yongxi Lyu, Qizhou Zhang, Shizhen Zhao, Xinbing Wang, Chenghu Zhou <a href="paper/FC+_ISPA_2023.pdf">"FC+: Near-optimal Deadlock-free Expander Data Center Networks"</a>, in IEEE ISPA, Wuhan, China, December 21-24, 2023.</li>
+		<li>Shizhen Zhao, Qizhou Zhang, <b>Peirui Cao</b>, Xiao Zhang, Xinbing Wang, Chenghu Zhou, <a href="paper/nsdi2023.pdf"> "Flattened Clos: Designing High-performance Deadlock-free Expander Data Center Networks Using Graph Contraction"</a>, in NSDI, Boston, MA, USA, April 17-19, 2023.</li>
+		<li>Shizhen Zhao, Xiao Zhang, <b>Peirui Cao</b>, Xinbing Wang, <a href="paper/IWQoS2021.pdf">"Design of Robust and Efficient Edge Server Placement and Server Scheduling Policies"</a>, in IWQoS, Tokyo, Japan, June 25-28, 2021.</li>
+	</ul>
 
 	<h4>Journal</h4>
-    	<ul>
-			<li><b>Peirui Cao</b>, Rui Ning, Guangyu Zhao, Zhaochen Zhang, Chang Liu, Yunzhuo Liu, Rui Li, Chengyuan Huang, Tao Sun, Zhiqiang Li, Guihai Chen, Baochun Li, Chen Tian, <a href="https://ieeexplore.ieee.org/document/11457047">"Revisiting Flow Control in Node-Centric Datacenter Networks"</a>, in IEEE/ACM Transactions on Networking (ToN), 2026.</li>
-			<li>Haixin Nan, Jun Xu, <b>Peirui Cao</b>#, Zhaochen Zhang, Yizhi Wang, Zhehao Li, Yuhang Li, Chengyuan Huang, Wentao Fan, Xiaohu Xu, Zhongming Ji, Shengju Zhang, Dongxu Wang, Lingkun Meng, Rong Gu, Guihai Chen, Chen Tian, <a href="https://ieeexplore.ieee.org/document/11364238">"Rail: ReArranging Inter-GPU Links for GPU-Centric Clusters"</a>, in IEEE/ACM Transactions on Networking (ToN), 2026.</li>
-			<li>Chengyuan Huang, Zhengqi Cui, Jun Xu, Zhaochen Zhang, Li Wang, <b>Peirui Cao</b>, Zhongming Ji, Jilei Chen, Dongxu Wang, Shengju Zhang, Lingkun Meng, Ahmed M. Abdelmoniem, Fu Xiao, Wanchun Dou, Guihai Chen, Keqiang He, Chen Tian, <a href="https://ieeexplore.ieee.org/document/11318042">"UDMP: Unified Delay-driven Multipath Protocol for AI Clusters"</a>, in IEEE/ACM Transactions on Networking (ToN), 2026.</li>
-			<li>Zhaochen Zhang, Kexin Liu, <b>Peirui Cao</b>#, Chang Liu, Yizhi Wang, Vamsi Addanki, Stefan Schmid, Qingyue Wang, Wei Chen, Xiaoliang Wang, Jiaqi Zheng, Wenhao Sun, Tao Wu, Ke Meng, Fei Chen, Weiguang Wang, Bingyang Liu, Wanchun Dou, Guihai Chen, Chen Tian, Hao Yin, Fu Xiao, <a href="https://ieeexplore.ieee.org/document/11292860/">"Analysis of Pyrrha: Congestion-Root-Based Flow Control is Most Cost-effective to Eliminate Head-of-Line Blocking"</a>, in IEEE/ACM Transactions on Networking (ToN), 2026.</li>
-			<li>Xinchi Han, Shizhen Zhao, Yongxi Lv, <b>Peirui Cao</b>, Weihao Jiang, Qinwei Yang, Yunzhuo Liu, Shengkai Lin, Bo Jiang, Ximeng Liu, Yong Cui, Chenghu Zhou, Xinbing Wang, <a href="">"vClos: Network Contention Aware Scheduling for Distributed Machine Learning Tasks in Multi-tenant GPU Clusters"</a>, in Computer Networks, 2025.</li>
-			<li>Mingyao Wang, Keqiang He, <b>Peirui Cao</b>#, Jiong Duan, Dongliang Lv, Zehao Yu, Yanqing Chen, Chengyuan Huang, Wanchun Dou, Guihai Chen, Chen Tian, <a href="paper/Reunion_CN25.pdf">"Reunion: Receiver-Driven Network Load Balancing Mechanism in AI Training Clusters"</a>, in Computer Networks, 2025.</li>
-			<li><b>Peirui Cao</b>, Shizhen Zhao, Dai Zhang, Zhuotao Liu, Mingwei Xu, Min Yee Teh, Yunzhuo Liu, Xinbing Wang, Chenghu Zhou, <a href="paper/ToN2023.pdf">"Threshold-based Routing-Topology Co-design for Optical Data Center"</a>, in IEEE/ACM Transactions on Networking (ToN), 2023.</li>
-			<li>Min Yee Teh, Shizhen Zhao, <b>Peirui Cao</b>, Keren Bergman, <a href="paper/ToN2022COUDER.pdf">"Enabling Quasi-static Reconfigurable Networks with Robust Topology Engineering"</a>, in IEEE/ACM Transactions on Networking (ToN), 2022.</li>
-		</ul>
+	<ul class="pub-list collapsed">
+		<li><b>Peirui Cao</b>, Rui Ning, Guangyu Zhao, Zhaochen Zhang, Chang Liu, Yunzhuo Liu, Rui Li, Chengyuan Huang, Tao Sun, Zhiqiang Li, Guihai Chen, Baochun Li, Chen Tian, <a href="https://ieeexplore.ieee.org/document/11457047">"Revisiting Flow Control in Node-Centric Datacenter Networks"</a>, in IEEE/ACM Transactions on Networking (ToN), 2026.</li>
+		<li><b>Peirui Cao</b>, Shizhen Zhao, Dai Zhang, Zhuotao Liu, Mingwei Xu, Min Yee Teh, Yunzhuo Liu, Xinbing Wang, Chenghu Zhou, <a href="paper/ToN2023.pdf">"Threshold-based Routing-Topology Co-design for Optical Data Center"</a>, in IEEE/ACM Transactions on Networking (ToN), 2023.</li>
+		<li>Haixin Nan, Jun Xu, <b>Peirui Cao</b>#, Zhaochen Zhang, Yizhi Wang, Zhehao Li, Yuhang Li, Chengyuan Huang, Wentao Fan, Xiaohu Xu, Zhongming Ji, Shengju Zhang, Dongxu Wang, Lingkun Meng, Rong Gu, Guihai Chen, Chen Tian, <a href="https://ieeexplore.ieee.org/document/11364238">"Rail: ReArranging Inter-GPU Links for GPU-Centric Clusters"</a>, in IEEE/ACM Transactions on Networking (ToN), 2026.</li>
+		<li>Zhaochen Zhang, Kexin Liu, <b>Peirui Cao</b>#, Chang Liu, Yizhi Wang, Vamsi Addanki, Stefan Schmid, Qingyue Wang, Wei Chen, Xiaoliang Wang, Jiaqi Zheng, Wenhao Sun, Tao Wu, Ke Meng, Fei Chen, Weiguang Wang, Bingyang Liu, Wanchun Dou, Guihai Chen, Chen Tian, Hao Yin, Fu Xiao, <a href="https://ieeexplore.ieee.org/document/11292860/">"Analysis of Pyrrha: Congestion-Root-Based Flow Control is Most Cost-effective to Eliminate Head-of-Line Blocking"</a>, in IEEE/ACM Transactions on Networking (ToN), 2026.</li>
+		<li>Chengyuan Huang, Zhengqi Cui, Jun Xu, Zhaochen Zhang, Li Wang, <b>Peirui Cao</b>, Zhongming Ji, Jilei Chen, Dongxu Wang, Shengju Zhang, Lingkun Meng, Ahmed M. Abdelmoniem, Fu Xiao, Wanchun Dou, Guihai Chen, Keqiang He, Chen Tian, <a href="https://ieeexplore.ieee.org/document/11318042">"UDMP: Unified Delay-driven Multipath Protocol for AI Clusters"</a>, in IEEE/ACM Transactions on Networking (ToN), 2026.</li>
+		<li>Xinchi Han, Shizhen Zhao, Yongxi Lv, <b>Peirui Cao</b>, Weihao Jiang, Qinwei Yang, Yunzhuo Liu, Shengkai Lin, Bo Jiang, Ximeng Liu, Yong Cui, Chenghu Zhou, Xinbing Wang, <a href="">"vClos: Network Contention Aware Scheduling for Distributed Machine Learning Tasks in Multi-tenant GPU Clusters"</a>, in Computer Networks, 2025.</li>
+		<li>Mingyao Wang, Keqiang He, <b>Peirui Cao</b>#, Jiong Duan, Dongliang Lv, Zehao Yu, Yanqing Chen, Chengyuan Huang, Wanchun Dou, Guihai Chen, Chen Tian, <a href="paper/Reunion_CN25.pdf">"Reunion: Receiver-Driven Network Load Balancing Mechanism in AI Training Clusters"</a>, in Computer Networks, 2025.</li>
+		<li>Min Yee Teh, Shizhen Zhao, <b>Peirui Cao</b>, Keren Bergman, <a href="paper/ToN2022COUDER.pdf">"Enabling Quasi-static Reconfigurable Networks with Robust Topology Engineering"</a>, in IEEE/ACM Transactions on Networking (ToN), 2022.</li>
+	</ul>
 			
     <hr>
 
-
-<!-- 
-	<p><h3>Patent</h3>
-    	<ul>
-
-		<li> Haojin Zhu, <b>Tong Zhu</b>, Yan Meng. 2022. Mobile advertising click fraud detection method, system, and terminal based on static analysis. CN (<b>National Invention Patent</b>) CN113191809B, filed May 7, 2021, and issued August 9, 2022 </li>
-
-		</ul>
-	</p>
-	<hr> -->
-	
     <p><h3>Services</h3>
     	<ul>
 			<li> Program committee on the SIGCOMM 2024 Artifact Evaluation. </li>
@@ -163,16 +164,10 @@
 		<li> Ph.D. students: Zhaochen Zhang, Chang Yu.</li>
 		<li> Master students: Haixin Nan, Jiong Duan, Rui Li, Ruiyan Yang, Weihao Zhang, Xuebin Liu.</li>
 		<li> Undergraduate students: Zhemin Fang.</li>
-
 	</ul>
 	</p>
     
 	
 	<hr style="width: 100%; height: 2px;">
-	<!-- <div style="text-align: center; font-size: 18px;">
-		<small> Last updated on 2024/12/26 &nbsp;&nbsp;&nbsp;
-			</small>
-			<br>
-	</div>> -->
 </body>
 </html>
